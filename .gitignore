@@ -1,0 +1,15 @@
+gdal_pam
+oauth2-cache
+palettes
+previewImages
+processing
+project_templates
+QGIS
+themes
+venv
+.idea
+python/expressions
+bookmarks.xml
+qgis.db
+qgis-auth.db
+symbology-style.db
