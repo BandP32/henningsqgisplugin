@@ -13,7 +13,8 @@ Drei unterschiedliche Wege das Plugin zu installieren:
 2. Das Verzeichnis ./python/plugins/henningsqgisplugin in das Verzeichnis ./python/plugins/ im Default-Profilverzeichnis kopieren
 
 ### 2. Offizielles Plugin-Repository:
-Noch nicht vorhanden 
+Noch nicht vorhanden:
+https://plugins.qgis.org/publish/
 
 ### 3. Git clone:
 1. QGIS Profilverzeichnis öffnen ("Settings" -> "User Profiles" -> "Open Active Profile Folder")
@@ -21,7 +22,7 @@ Noch nicht vorhanden
 3. QGIS öffnen
 4. Auf das neue User-Profil "henningsqgisplugin" wechseln
 5. "Plugins" -> "Manage and Install Plugins" -> Plugin aktivieren
-
+https://plugins.qgis.org/publish/
 ## Entwicklung To-Do-Liste:
 
 - [x] Repository erstellen
