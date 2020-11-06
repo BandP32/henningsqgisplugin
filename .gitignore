@@ -9,6 +9,7 @@ themes
 venv
 .idea
 python/expressions
+python/plugins/plugin_reloader/
 bookmarks.xml
 qgis.db
 qgis-auth.db
