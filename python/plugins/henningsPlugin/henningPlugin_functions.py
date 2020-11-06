@@ -16,7 +16,7 @@
 """
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QVa
+from PyQt5.QtGui import QValidator
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from qgis.utils import iface
@@ -24,6 +24,7 @@ import os							# access files
 import json							# load JSON as a dictionary
 from glob import glob				# access files with wildcards
 from functools import partial		# signal-connect to a function with arguments
+from .henningPlugin_validator import PathValidator
 
 """This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer"""
 FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'henningsPlugin.ui'))
@@ -37,6 +38,10 @@ class DialogAndFunctions(QDialog, FORM_CLASS):
         
         # Variables ---------------------------------------------------------------------------------------------------
 
+        # Initialize the path validator
+        self.pathValidator = PathValidator()                    # Invoke QValidator Subclass to check for paths
+        self.lineEditInputDir.setValidator(self.pathValidator)  # Set validator of line edit fields
+        self.lineEditOutputDir.setValidator(self.pathValidator)
 
         # Connect QT elements with functions ----------------------------------------------------------------------
         self.buttonBox.accepted.connect(self.startProcessing)       # OK-Button
@@ -50,18 +55,14 @@ class DialogAndFunctions(QDialog, FORM_CLASS):
         self.buttonBox.button(0x00000400).setEnabled(False)     # OK-Button
         self.buttonBox.button(0x00400000).setEnabled(True)      # Cancel-Button
 
-
-    # """One of the content elements was edited: font color depents on existence of path and on changes made """
+    """One of the content elements was edited: font color depents on existence of path and on changes made """
     def checkPath(self, lineEdit):
-        path = lineEdit.text()
-        color = "Red" if not os.path.exists(path) else "Black"
+        lineEdit.setValidator(self.pathValidator)
+        color = "Black" if lineEdit.hasAcceptableInput() else "Red"
         lineEdit.setStyleSheet("font:9pt \"Arial\";color:%s" % color)
-
-        # Enable OK-Button if path exist and all paths are defined
-        if color == "Black":
-            lineEdit.setValidator()
-            if self.lineEditInputDir.text() and self.lineEditOutputDir.text():
-                self.buttonBox.button(0x00000400).setEnabled(True)  # enable OK-Button
+        # Enable OK-Button if all paths exist
+        if self.lineEditInputDir.hasAcceptableInput() and self.lineEditOutputDir.hasAcceptableInput():
+            self.buttonBox.button(0x00000400).setEnabled(True)  # enable OK-Button
 
     """...-button clicked: user may select another path """
     def chooseDirectory(self, pushButton, lineEdit):
