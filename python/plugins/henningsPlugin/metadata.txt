@@ -1,0 +1,14 @@
+# This file contains metadata for the plugin "henningsPlugin"
+[general]
+name=henningsPlugin
+qgisMinimumVersion=3.0
+description=This plugin does this and that
+version=0.1
+author=HH
+email=h@h.de
+
+about=something
+
+icon=icon.png
+experimental=True
+deprecated=False
