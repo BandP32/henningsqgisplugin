@@ -13,3 +13,6 @@ bookmarks.xml
 qgis.db
 qgis-auth.db
 symbology-style.db
+*.pyc
+__pycache__*
+
