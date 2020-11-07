@@ -25,6 +25,7 @@ import json							# load JSON as a dictionary
 from glob import glob				# access files with wildcards
 from functools import partial		# signal-connect to a function with arguments
 from .henningPlugin_validator import PathValidator
+from .henningPlugin_processor import Worker
 
 """This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer"""
 FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'henningsPlugin.ui'))
@@ -55,14 +56,17 @@ class DialogAndFunctions(QDialog, FORM_CLASS):
         self.buttonBox.button(0x00000400).setEnabled(False)     # OK-Button
         self.buttonBox.button(0x00400000).setEnabled(True)      # Cancel-Button
 
-    """One of the content elements was edited: font color depents on existence of path and on changes made """
+    """One of the content elements was edited: font color depends on existence of path """
     def checkPath(self, lineEdit):
-        lineEdit.setValidator(self.pathValidator)
+        lineEdit.setValidator(self.pathValidator)       # validate path
         color = "Black" if lineEdit.hasAcceptableInput() else "Red"
         lineEdit.setStyleSheet("font:9pt \"Arial\";color:%s" % color)
+
         # Enable OK-Button if all paths exist
         if self.lineEditInputDir.hasAcceptableInput() and self.lineEditOutputDir.hasAcceptableInput():
             self.buttonBox.button(0x00000400).setEnabled(True)  # enable OK-Button
+        else:
+            self.buttonBox.button(0x00000400).setEnabled(False)  # disable OK-Button
 
     """...-button clicked: user may select another path """
     def chooseDirectory(self, pushButton, lineEdit):
@@ -78,6 +82,10 @@ class DialogAndFunctions(QDialog, FORM_CLASS):
         iface.messageBar().pushMessage("Hennings Plugin", "Prozessierung startet...")
         self.buttonBox.button(0x00000400).setEnabled(False)     # OK-Button
 
+        self.job = Worker()
+        self.job.dctMessages.connect()  # Connect the signal dictionary
+
+        self.job.start()
 
     """Cancel button clicked: quit without storing """
     def cancel(self):
