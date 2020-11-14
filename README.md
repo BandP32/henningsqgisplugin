@@ -2,11 +2,11 @@
 
 ## Erste Implementation
 
-Dies ist die erste Implementation für Hennings QGIS Plugin. Es beinhaltet eine funktionale GUI mit Backend, welches als Grundlage zur Einbindung des Prozessierungsskripts dienen.
+Dies ist die erste Implementation für Hennings QGIS Plugin. Es beinhaltet eine funktionale GUI mit Backend, welches als Grundlage zur Einbindung des Prozessierungsskripts dienen kann.
 
 ## Installationsanleitung des Plugins
 
-Drei unterschiedliche Wege das Plugin zu installieren:
+Es gibt drei unterschiedliche Wege das Plugin zu installieren:
 
 ### 1. Plugin in das vorhandene QGIS-default-Profil kopieren:
 1. Zip-Paket herunterladen
@@ -22,7 +22,7 @@ https://plugins.qgis.org/publish/
 
 ### 3. Herunterladen über offizielles Plugin-Repository:
 
-Noch nicht vorhanden:
+Noch nicht implementiert. Hier ist eine Anleitung dazu:
 https://plugins.qgis.org/publish/
 
 ## Entwicklung To-Do-Liste:
